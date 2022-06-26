@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/cloudx-eshop-db-server/databases/CatalogDb",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:CatalogConnection",
+      "dynamicId": null
+    },
+    "mssql2": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/cloudx-eshop-db-server/databases/IdentityDb",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:IdentityConnection",
+      "dynamicId": null
+    },
+    "appInsights2": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/microsoft.insights/components/cloudx-eshop-web-01",
+      "type": "appInsights.azure",
+      "connectionId": "APPLICATIONINSIGHTS_CONNECTION_STRING"
+    }
+  }
+}
