@@ -22,4 +22,6 @@ public class Address // ValueObject
         Country = country;
         ZipCode = zipcode;
     }
+
+    public string Formated => $"{ZipCode}, {Country}, {State}, {City}, {Street}";
 }

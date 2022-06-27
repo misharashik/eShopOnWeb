@@ -15,16 +15,22 @@ public class OrderService : IOrderService
     private readonly IUriComposer _uriComposer;
     private readonly IRepository<Basket> _basketRepository;
     private readonly IRepository<CatalogItem> _itemRepository;
+    private readonly IFuncTrigger _funcTrigger;
+    private readonly IMessagePublisher _messagePublisher;
 
     public OrderService(IRepository<Basket> basketRepository,
         IRepository<CatalogItem> itemRepository,
         IRepository<Order> orderRepository,
-        IUriComposer uriComposer)
+        IUriComposer uriComposer,
+        IFuncTrigger funcTrigger,
+        IMessagePublisher messagePublisher)
     {
         _orderRepository = orderRepository;
         _uriComposer = uriComposer;
         _basketRepository = basketRepository;
         _itemRepository = itemRepository;
+        _funcTrigger = funcTrigger;
+        _messagePublisher = messagePublisher;
     }
 
     public async Task CreateOrderAsync(int basketId, Address shippingAddress)
@@ -49,5 +55,8 @@ public class OrderService : IOrderService
         var order = new Order(basket.BuyerId, shippingAddress, items);
 
         await _orderRepository.AddAsync(order);
+
+        await _funcTrigger.TriggerOrderToCosmosFunc(order);
+        await _messagePublisher.Publish(order);
     }
 }

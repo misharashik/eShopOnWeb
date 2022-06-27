@@ -30,6 +30,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpoints();
 
+//builder.Services.AddApplicationInsightsTelemetry();
+
 //Use to force loading of appsettings.json of test project
 builder.Configuration.AddConfigurationFile();
 builder.Logging.AddConsole();

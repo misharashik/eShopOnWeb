@@ -20,7 +20,8 @@ public class CheckoutModel : PageModel
     private readonly IBasketViewModelService _basketViewModelService;
     private readonly IAppLogger<CheckoutModel> _logger;
 
-    public CheckoutModel(IBasketService basketService,
+    public CheckoutModel(
+        IBasketService basketService,
         IBasketViewModelService basketViewModelService,
         SignInManager<ApplicationUser> signInManager,
         IOrderService orderService,
@@ -85,11 +86,16 @@ public class CheckoutModel : PageModel
         {
             _username = Request.Cookies[Constants.BASKET_COOKIENAME];
         }
-        if (_username != null) return;
+        if (_username != null)
+        {
+            return;
+        }
 
         _username = Guid.NewGuid().ToString();
-        var cookieOptions = new CookieOptions();
-        cookieOptions.Expires = DateTime.Today.AddYears(10);
+        var cookieOptions = new CookieOptions
+        {
+            Expires = DateTime.Today.AddYears(10)
+        };
         Response.Cookies.Append(Constants.BASKET_COOKIENAME, _username, cookieOptions);
     }
 }
